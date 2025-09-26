@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUTLER - Behavioral Understanding & Tactical Law Enforcement Resource | Dallas County</title>
+    <meta name="description" content="BUTLER AI Intelligence System for Dallas County - Advanced email monitoring and operational assistance">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23146dfc'><path d='M12 1l3 3h4v4l3 3-3 3v4h-4l-3 3-3-3H5v-4l-3-3 3-3V5h4l3-3z'/></svg>">
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'bounce': 'bounce 1s infinite',
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin': 'spin 1s linear infinite',
+                        'ping': 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+                        'fadeIn': 'fadeIn 0.5s ease-in-out',
+                        'slideIn': 'slideIn 0.3s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        .slide-in { animation: slideIn 0.3s ease-out; }
+        .demo-highlight {
+            background: linear-gradient(120deg, #a7f3d0 0%, #84e1bc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .butler-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useRef, useEffect, useCallback } = React;
+        const {
+            Send, Mail, Users, Activity, AlertCircle, CheckCircle, Clock,
+            Search, Filter, ChevronRight, Shield, Database, Zap, Bot,
+            TrendingUp, FileText, Bell, Settings, RefreshCw, Calendar
+        } = lucideReact;
+
+        const ButlerDemo = () => {
+            const [messages, setMessages] = useState([
+                {
+                    id: 1,
+                    type: 'system',
+                    content: 'BUTLER Intelligence System initialized for Dallas County. Ready to assist with operational monitoring and analysis.',
+                    timestamp: new Date().toISOString()
+                }
+            ]);
+            const [input, setInput] = useState('');
+            const [activeTab, setActiveTab] = useState('assistant');
+            const [currentTime, setCurrentTime] = useState(new Date());
+            const [listservEmails, setListservEmails] = useState([
+                {
+                    id: 1,
+                    from: 'emergency.mgmt@dallascounty.org',
+                    subject: 'Severe Weather Alert - Thunderstorm Warning Active',
+                    priority: 'high',
+                    unread: true,
+                    time: '2 min ago',
+                    preview: 'Thunderstorm warning in effect for northern Dallas County until 6:00 PM. Wind gusts up to 60 mph expected...'
+                },
+                {
+                    id: 2,
+                    from: 'facilities@dallascounty.org',
+                    subject: 'Maintenance Schedule Update - HVAC Systems',
+                    priority: 'normal',
+                    unread: true,
+                    time: '15 min ago',
+                    preview: 'Scheduled HVAC maintenance for Buildings A, C, and E will commence at 8:00 PM tonight...'
+                },
+                {
+                    id: 3,
+                    from: 'it.security@dallascounty.org',
+                    subject: 'Critical Security Patch Deployment - Windows Systems',
+                    priority: 'high',
+                    unread: false,
+                    time: '1 hour ago',
+                    preview: 'Microsoft security update KB5031354 will be deployed across all county workstations...'
+                },
+                {
+                    id: 4,
+                    from: 'hr@dallascounty.org',
+                    subject: 'Policy Update - Remote Work Guidelines',
+                    priority: 'normal',
+                    unread: false,
+                    time: '3 hours ago',
+                    preview: 'Updated remote work policy effective October 1st. Please review the new approval process...'
+                },
+                {
+                    id: 5,
+                    from: 'public.health@dallascounty.org',
+                    subject: 'Weekly Health Department Brief - Community Metrics',
+                    priority: 'normal',
+                    unread: false,
+                    time: '5 hours ago',
+                    preview: 'Weekly health metrics showing positive trends in community health indicators...'
+                }
+            ]);
+            const [isProcessing, setIsProcessing] = useState(false);
+            const [systemMetrics, setSystemMetrics] = useState({
+                emailsProcessed: 1247,
+                activeAlerts: 3,
+                responseTime: '0.8s',
+                uptime: '99.9%',
+                departmentsMonitored: 14,
+                lastUpdated: new Date().toISOString()
+            });
+            const [selectedEmail, setSelectedEmail] = useState(null);
+            const messagesEndRef = useRef(null);
+
+            // Update current time every minute
+            useEffect(() => {
+                const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+                return () => clearInterval(timer);
+            }, []);
+
+            // Simulate real-time metric updates
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setSystemMetrics(prev => ({
+                        ...prev,
+                        emailsProcessed: prev.emailsProcessed + Math.floor(Math.random() * 3),
+                        responseTime: (Math.random() * 0.4 + 0.6).toFixed(1) + 's',
+                        lastUpdated: new Date().toISOString()
+                    }));
+                }, 30000);
+                return () => clearInterval(interval);
+            }, []);
+
+            const scrollToBottom = useCallback(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, []);
+
+            useEffect(() => {
+                scrollToBottom();
+            }, [messages, scrollToBottom]);
+
+            const handleSend = async () => {
+                if (!input.trim()) return;
+
+                const userMessage = {
+                    id: messages.length + 1,
+                    type: 'user',
+                    content: input,
+                    timestamp: new Date().toISOString()
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                const query = input;
+                setInput('');
+                setIsProcessing(true);
+
+                // Enhanced AI response simulation
+                setTimeout(() => {
+                    const aiResponse = {
+                        id: messages.length + 2,
+                        type: 'butler',
+                        content: generateButlerResponse(query),
+                        timestamp: new Date().toISOString()
+                    };
+                    setMessages(prev => [...prev, aiResponse]);
+                    setIsProcessing(false);
+                }, Math.random() * 1000 + 1200);
+            };
+
+            const generateButlerResponse = (query) => {
+                const lowerQuery = query.toLowerCase();
+
+                if (lowerQuery.includes('weather') || lowerQuery.includes('alert') || lowerQuery.includes('storm')) {
+                    return `🌩️ **Weather Alert Analysis**\n\nI've analyzed the severe weather alert from Emergency Management. A thunderstorm warning is active for northern Dallas County until 6:00 PM with wind gusts up to 60 mph.\n\n**Actions Taken:**\n• Notified all field personnel\n• Updated emergency response protocols\n• Secured county facilities\n• Activated backup communication systems\n\n**Recommendation:** Monitor situation closely and prepare for potential power outages.`;
+                } else if (lowerQuery.includes('security') || lowerQuery.includes('patch') || lowerQuery.includes('update')) {
+                    return `🔒 **Security Update Status**\n\nThe critical security patch deployment (KB5031354) is scheduled for tonight at 11:00 PM. All county systems will remain operational during the update.\n\n**Details:**\n• Compatibility verified with county infrastructure\n• Rollback procedures prepared\n• Estimated completion: 2:00 AM\n• Zero downtime expected for critical services\n\n**Status:** All systems ready for deployment.`;
+                } else if (lowerQuery.includes('email') || lowerQuery.includes('listserv') || lowerQuery.includes('how many')) {
+                    return `📧 **Email System Status**\n\nCurrently monitoring ${systemMetrics.emailsProcessed.toLocaleString()} emails across ${systemMetrics.departmentsMonitored} department listservs.\n\n**Current Activity:**\n• ${systemMetrics.activeAlerts} high-priority items requiring attention\n• Average response time: ${systemMetrics.responseTime}\n• All automated responses functioning normally\n\n**Recent Trends:** 15% increase in inter-departmental communications this week.`;
+                } else if (lowerQuery.includes('status') || lowerQuery.includes('system') || lowerQuery.includes('health')) {
+                    return `⚡ **System Health Report**\n\n**Overall Status:** All systems operational\n\n**Performance Metrics:**\n• Response time: ${systemMetrics.responseTime} (excellent)\n• System uptime: ${systemMetrics.uptime}\n• Active monitoring: ${systemMetrics.departmentsMonitored} departments\n• Last health check: ${new Date().toLocaleTimeString()}\n\n**Resource Usage:** Normal levels across all monitored services.`;
+                } else if (lowerQuery.includes('help') || lowerQuery.includes('what can you do')) {
+                    return `🤖 **BUTLER Capabilities**\n\nI can assist you with:\n\n**📧 Email Management**\n• Monitor department listservs\n• Analyze message priority and content\n• Generate automated responses\n\n**🚨 Alert Processing**\n• Track emergency notifications\n• Coordinate response protocols\n• Monitor weather and security alerts\n\n**📊 System Monitoring**\n• Real-time performance metrics\n• Department activity tracking\n• Operational status reports\n\nTry asking: "What's the weather alert?" or "Check system status"`;
+                } else {
+                    return `🔍 **Query Processing**\n\nI understand your request and I'm analyzing relevant Dallas County data and communications to provide the most accurate response.\n\n**Context Considered:**\n• Current system status\n• Recent departmental communications\n• Active alerts and notifications\n• Historical patterns\n\nHow can I assist you with Dallas County operations today? I'm here to help with monitoring, analysis, and operational support.`;
+                }
+            };
+
+            const handleListservAction = (email, action) => {
+                if (action === 'analyze') {
+                    const analysisMessage = {
+                        id: messages.length + 1,
+                        type: 'butler',
+                        content: `📋 **Email Analysis Complete**\n\n**From:** ${email.from}\n**Subject:** "${email.subject}"\n**Priority Level:** ${email.priority.toUpperCase()}\n\n**AI Assessment:**\n${email.preview}\n\n**Recommended Action:** ${
+                            email.priority === 'high'
+                                ? '🔴 **Immediate attention required.** Draft response prepared for your review. Suggest escalating to department head.'
+                                : '🟡 **Standard processing.** Logged for daily digest. No immediate action needed.'
+                        }\n\n**Confidence Score:** ${email.priority === 'high' ? '94%' : '87%'}`,
+                        timestamp: new Date().toISOString()
+                    };
+                    setMessages(prev => [...prev, analysisMessage]);
+                    setActiveTab('assistant');
+
+                    // Mark email as read
+                    setListservEmails(prev =>
+                        prev.map(e => e.id === email.id ? { ...e, unread: false } : e)
+                    );
+                }
+            };
+
+            const quickActions = [
+                { text: '→ Generate daily brief', icon: FileText },
+                { text: '→ Check security alerts', icon: Shield },
+                { text: '→ Review pending approvals', icon: CheckCircle },
+                { text: '→ Analyze listserv traffic', icon: TrendingUp },
+                { text: '→ Weather update', icon: Activity },
+                { text: '→ System diagnostics', icon: Settings }
+            ];
+
+            const recentAlerts = [
+                { text: 'Weather warning - North Dallas', icon: AlertCircle, severity: 'high' },
+                { text: 'IT maintenance window tonight', icon: Clock, severity: 'medium' },
+                { text: 'Budget review deadline Friday', icon: Calendar, severity: 'low' },
+                { text: 'Security patch deployment ready', icon: Shield, severity: 'medium' }
+            ];
+
+            return (
+                <div className="flex flex-col h-screen bg-slate-50 fade-in">
+                    {/* Enhanced Header */}
+                    <header className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white shadow-xl butler-glow">
+                        <div className="px-6 py-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="relative">
+                                            <Shield className="w-10 h-10 text-blue-400" />
+                                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+                                        </div>
+                                        <div>
+                                            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">
+                                                BUTLER
+                                            </h1>
+                                            <p className="text-xs text-slate-300 uppercase tracking-wider font-medium">
+                                                Behavioral Understanding & Tactical Law Enforcement Resource
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center space-x-6 text-sm">
+                                    <div className="flex items-center space-x-2 bg-slate-700/50 px-3 py-2 rounded-lg">
+                                        <Database className="w-4 h-4 text-emerald-400" />
+                                        <span className="font-medium">Dallas County, TX</span>
+                                    </div>
+                                    <div className="flex items-center space-x-2 bg-slate-700/50 px-3 py-2 rounded-lg">
+                                        <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                                        <span className="font-medium">System Active</span>
+                                    </div>
+                                    <div className="text-xs text-slate-400">
+                                        {currentTime.toLocaleTimeString()}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Enhanced Metrics Bar */}
+                    <div className="bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+                        <div className="grid grid-cols-4 gap-6">
+                            <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
+                                <Mail className="w-6 h-6 text-blue-600" />
+                                <div>
+                                    <p className="text-xs text-slate-600 font-medium">Emails Processed</p>
+                                    <p className="text-xl font-bold text-slate-900">{systemMetrics.emailsProcessed.toLocaleString()}</p>
+                                    <p className="text-xs text-blue-600">+{Math.floor(Math.random() * 5) + 1} this hour</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg">
+                                <AlertCircle className="w-6 h-6 text-amber-600" />
+                                <div>
+                                    <p className="text-xs text-slate-600 font-medium">Active Alerts</p>
+                                    <p className="text-xl font-bold text-slate-900">{systemMetrics.activeAlerts}</p>
+                                    <p className="text-xs text-amber-600">2 high priority</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-lg">
+                                <Zap className="w-6 h-6 text-emerald-600" />
+                                <div>
+                                    <p className="text-xs text-slate-600 font-medium">Response Time</p>
+                                    <p className="text-xl font-bold text-slate-900">{systemMetrics.responseTime}</p>
+                                    <p className="text-xs text-emerald-600">Excellent</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-green-100 rounded-lg">
+                                <CheckCircle className="w-6 h-6 text-green-600" />
+                                <div>
+                                    <p className="text-xs text-slate-600 font-medium">System Uptime</p>
+                                    <p className="text-xl font-bold text-slate-900">{systemMetrics.uptime}</p>
+                                    <p className="text-xs text-green-600">30 days strong</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="flex flex-1 overflow-hidden">
+                        {/* Enhanced Sidebar */}
+                        <div className="w-80 bg-white border-r border-slate-200 flex flex-col shadow-sm">
+                            <div className="border-b border-slate-200 bg-slate-50">
+                                <div className="flex">
+                                    <button
+                                        onClick={() => setActiveTab('assistant')}
+                                        className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 ${
+                                            activeTab === 'assistant'
+                                                ? 'text-blue-600 border-b-3 border-blue-600 bg-blue-50 shadow-sm'
+                                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                                        }`}
+                                    >
+                                        <Bot className="w-4 h-4" />
+                                        <span>AI Assistant</span>
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab('listserv')}
+                                        className={`flex-1 px-4 py-4 text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 ${
+                                            activeTab === 'listserv'
+                                                ? 'text-blue-600 border-b-3 border-blue-600 bg-blue-50 shadow-sm'
+                                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                                        }`}
+                                    >
+                                        <Mail className="w-4 h-4" />
+                                        <span>Listserv Monitor</span>
+                                        {listservEmails.filter(e => e.unread).length > 0 && (
+                                            <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                                                {listservEmails.filter(e => e.unread).length}
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Listserv Content */}
+                            {activeTab === 'listserv' && (
+                                <div className="flex-1 overflow-y-auto slide-in">
+                                    <div className="p-4 border-b border-slate-200 bg-slate-50">
+                                        <div className="flex items-center space-x-2">
+                                            <Search className="w-4 h-4 text-slate-400" />
+                                            <input
+                                                type="text"
+                                                placeholder="Search emails..."
+                                                className="flex-1 text-sm bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            />
+                                            <button className="p-2 hover:bg-slate-200 rounded-lg transition-colors">
+                                                <Filter className="w-4 h-4 text-slate-600" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="divide-y divide-slate-200">
+                                        {listservEmails.map(email => (
+                                            <div
+                                                key={email.id}
+                                                className={`p-4 hover:bg-slate-50 cursor-pointer transition-all duration-200 ${
+                                                    email.unread ? 'bg-blue-50 border-l-4 border-blue-500' : ''
+                                                }`}
+                                                onClick={() => handleListservAction(email, 'analyze')}
+                                            >
+                                                <div className="flex items-start justify-between">
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center space-x-2">
+                                                            {email.unread && <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />}
+                                                            <p className="text-sm font-semibold text-slate-900 truncate">{email.from}</p>
+                                                        </div>
+                                                        <p className="text-sm text-slate-900 font-medium mt-1 line-clamp-1">{email.subject}</p>
+                                                        <p className="text-xs text-slate-500 mt-1 line-clamp-2">{email.preview}</p>
+                                                        <div className="flex items-center space-x-3 mt-3">
+                                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                                                                email.priority === 'high'
+                                                                    ? 'bg-red-100 text-red-800 border border-red-200'
+                                                                    : 'bg-slate-100 text-slate-700 border border-slate-200'
+                                                            }`}>
+                                                                {email.priority === 'high' ? '🔴 High' : '🟡 Normal'}
+                                                            </span>
+                                                            <span className="text-xs text-slate-500 flex items-center">
+                                                                <Clock className="w-3 h-3 mr-1" />
+                                                                {email.time}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <ChevronRight className="w-5 h-5 text-slate-400 mt-1" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Assistant Content */}
+                            {activeTab === 'assistant' && (
+                                <div className="flex-1 p-4 overflow-y-auto slide-in">
+                                    <div className="space-y-4">
+                                        <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-4">
+                                            <h3 className="text-sm font-bold text-blue-900 mb-3 flex items-center">
+                                                <Zap className="w-4 h-4 mr-2" />
+                                                Quick Actions
+                                            </h3>
+                                            <div className="space-y-2">
+                                                {quickActions.map((action, i) => {
+                                                    const IconComponent = action.icon;
+                                                    return (
+                                                        <button key={i} className="w-full text-left text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 rounded-lg px-3 py-2 transition-all duration-200 flex items-center space-x-2">
+                                                            <IconComponent className="w-4 h-4" />
+                                                            <span>{action.text}</span>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-4">
+                                            <h3 className="text-sm font-bold text-amber-900 mb-3 flex items-center">
+                                                <Bell className="w-4 h-4 mr-2" />
+                                                Recent Alerts
+                                            </h3>
+                                            <div className="space-y-2">
+                                                {recentAlerts.map((alert, i) => {
+                                                    const IconComponent = alert.icon;
+                                                    return (
+                                                        <div key={i} className={`flex items-center space-x-2 text-xs p-2 rounded-lg ${
+                                                            alert.severity === 'high' ? 'bg-red-50 text-red-800' :
+                                                            alert.severity === 'medium' ? 'bg-amber-50 text-amber-800' :
+                                                            'bg-slate-50 text-slate-600'
+                                                        }`}>
+                                                            <IconComponent className="w-3 h-3" />
+                                                            <span className="flex-1">{alert.text}</span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 border border-emerald-200 rounded-xl p-4">
+                                            <h3 className="text-sm font-bold text-emerald-900 mb-2">System Health</h3>
+                                            <div className="space-y-2 text-xs text-emerald-800">
+                                                <div className="flex justify-between">
+                                                    <span>Email Processing:</span>
+                                                    <span className="font-semibold">Active</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>AI Analysis:</span>
+                                                    <span className="font-semibold">Online</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span>Department Links:</span>
+                                                    <span className="font-semibold">{systemMetrics.departmentsMonitored}/14</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Enhanced Chat Area */}
+                        <div className="flex-1 flex flex-col bg-white">
+                            <div className="flex-1 overflow-y-auto p-6">
+                                <div className="max-w-4xl mx-auto space-y-4">
+                                    {messages.map(message => (
+                                        <div
+                                            key={message.id}
+                                            className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} fade-in`}
+                                        >
+                                            <div
+                                                className={`max-w-3xl px-5 py-4 rounded-2xl shadow-sm ${
+                                                    message.type === 'user'
+                                                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
+                                                        : message.type === 'butler'
+                                                        ? 'bg-gradient-to-r from-slate-50 to-slate-100 text-slate-900 border border-slate-200'
+                                                        : 'bg-gradient-to-r from-amber-50 to-amber-100 text-amber-900 border border-amber-200'
+                                                }`}
+                                            >
+                                                {message.type === 'butler' && (
+                                                    <div className="flex items-center space-x-2 mb-3">
+                                                        <Shield className="w-5 h-5 text-blue-600" />
+                                                        <span className="text-xs font-bold text-blue-600 uppercase tracking-wide">BUTLER AI</span>
+                                                        <span className="text-xs text-slate-500">•</span>
+                                                        <span className="text-xs text-slate-500">Confidence: High</span>
+                                                    </div>
+                                                )}
+                                                {message.type === 'system' && (
+                                                    <div className="flex items-center space-x-2 mb-3">
+                                                        <AlertCircle className="w-5 h-5 text-amber-600" />
+                                                        <span className="text-xs font-bold text-amber-600 uppercase tracking-wide">System</span>
+                                                    </div>
+                                                )}
+                                                <div className="text-sm leading-relaxed whitespace-pre-wrap">
+                                                    {message.content}
+                                                </div>
+                                                <p className={`text-xs mt-3 flex items-center ${
+                                                    message.type === 'user' ? 'text-blue-100' : 'text-slate-500'
+                                                }`}>
+                                                    <Clock className="w-3 h-3 mr-1" />
+                                                    {new Date(message.timestamp).toLocaleTimeString()}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {isProcessing && (
+                                        <div className="flex justify-start fade-in">
+                                            <div className="bg-gradient-to-r from-slate-50 to-slate-100 text-slate-900 px-5 py-4 rounded-2xl border border-slate-200 shadow-sm">
+                                                <div className="flex items-center space-x-2 mb-2">
+                                                    <Shield className="w-5 h-5 text-blue-600 animate-pulse" />
+                                                    <span className="text-xs font-bold text-blue-600 uppercase tracking-wide">BUTLER AI</span>
+                                                    <span className="text-xs text-slate-500">• Processing...</span>
+                                                </div>
+                                                <div className="flex space-x-1">
+                                                    <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                                    <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                                    <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div ref={messagesEndRef} />
+                                </div>
+                            </div>
+
+                            {/* Enhanced Input Area */}
+                            <div className="border-t border-slate-200 p-6 bg-gradient-to-r from-slate-50 to-white">
+                                <div className="max-w-4xl mx-auto">
+                                    <div className="flex space-x-4">
+                                        <input
+                                            type="text"
+                                            value={input}
+                                            onChange={(e) => setInput(e.target.value)}
+                                            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                            placeholder="Ask BUTLER about county operations, emails, alerts, or system status..."
+                                            className="flex-1 px-4 py-4 bg-white border-2 border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium shadow-sm"
+                                            disabled={isProcessing}
+                                        />
+                                        <button
+                                            onClick={handleSend}
+                                            disabled={isProcessing || !input.trim()}
+                                            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2 shadow-lg"
+                                        >
+                                            <Send className="w-5 h-5" />
+                                            <span className="font-semibold">Send</span>
+                                        </button>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-3">
+                                        {['What\'s the weather alert?', 'Check system status', 'How many emails today?', 'Security updates?'].map((suggestion, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={() => setInput(suggestion)}
+                                                className="px-3 py-1 text-xs bg-white border border-slate-200 rounded-full hover:bg-slate-50 text-slate-600 transition-colors"
+                                            >
+                                                {suggestion}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(ButlerDemo));
+    </script>
+</body>
+</html>

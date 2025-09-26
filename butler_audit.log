@@ -1,0 +1,9 @@
+2025-09-25 15:47:21,054 - BUTLER - INFO - Authentication attempt: county.manager@dallascounty.org
+2025-09-25 15:48:11,572 - BUTLER - INFO - Authentication attempt: county.manager@dallascounty.org
+2025-09-25 15:48:11,572 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - permission_check_ncic_tcic - access_control
+2025-09-25 15:48:28,166 - BUTLER - INFO - Authentication attempt: county.manager@dallascounty.org
+2025-09-25 15:48:28,166 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - permission_check_ncic_tcic - access_control
+2025-09-25 15:49:08,275 - BUTLER - INFO - Authentication attempt: county.manager@dallascounty.org
+2025-09-25 15:49:08,277 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - permission_check_ncic_tcic - access_control
+2025-09-25 15:49:08,278 - BUTLER - INFO - Action logged: system - crime_pattern_analysis_7d - intelligence
+2025-09-25 15:49:08,278 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - executive_dashboard_generated - intelligence
