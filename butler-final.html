@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUTLER - Texas Association of Counties</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #fff;
+            color: #202124;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* TAOC Logo - Upper Right */
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .taoc-logo {
+            height: 60px;
+            width: auto;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 24px;
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 20px;
+            background: #dadce0;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+
+        body.admin-mode {
+            background: #f8f9fa;
+        }
+
+        body.admin-mode .toggle-switch {
+            background: #1a73e8;
+        }
+
+        body.admin-mode .toggle-switch::after {
+            left: 22px;
+        }
+
+        /* USER VIEW */
+        .user-view {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        body.admin-mode .user-view {
+            display: none;
+        }
+
+        .main-content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .org-title {
+            font-size: 28px;
+            font-weight: 300;
+            color: #5f6368;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .butler-title {
+            font-size: 72px;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #003f87, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-box {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            background: #fff;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 0 20px;
+            transition: all 0.2s;
+            margin-bottom: 30px;
+        }
+
+        .search-box:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn {
+            background: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            padding: 0 16px;
+            height: 36px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .btn:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            border: 1px solid #dadce0;
+        }
+
+        .results {
+            max-width: 800px;
+            margin: 40px auto;
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ADMIN VIEW */
+        .admin-view {
+            display: none;
+        }
+
+        body.admin-mode .admin-view {
+            display: block;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            background: white;
+            border-bottom: 1px solid #dadce0;
+            padding: 20px 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-org-title {
+            font-size: 14px;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .admin-butler-title {
+            font-size: 32px;
+            font-weight: 400;
+            background: linear-gradient(135deg, #003f87, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #5f6368;
+            margin-top: 5px;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            background: white;
+            border-bottom: 1px solid #dadce0;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-tab {
+            padding: 16px 0;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+            color: #5f6368;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+        }
+
+        .nav-tab:hover {
+            color: #202124;
+        }
+
+        .nav-tab.active {
+            color: #1a73e8;
+            border-bottom-color: #1a73e8;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .metric-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #5f6368;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a73e8;
+        }
+
+        .metric-change {
+            font-size: 12px;
+            color: #188038;
+            margin-top: 5px;
+        }
+
+        .metric-change.negative {
+            color: #d33b27;
+        }
+
+        /* Configuration Sections */
+        .config-section {
+            background: white;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .config-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #202124;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #202124;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26,115,232,0.1);
+        }
+
+        /* Admin Buttons */
+        .admin-btn {
+            padding: 10px 24px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .admin-btn:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        /* Charts */
+        .chart-container {
+            background: white;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #202124;
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e8eaed 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+        }
+
+        /* API Grid */
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .api-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .api-name {
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .api-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .api-badge.connected {
+            background: #e6f4ea;
+            color: #188038;
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #1e1e1e;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            height: 400px;
+            overflow-y: auto;
+            color: #33ff33;
+            font-size: 13px;
+        }
+
+        .terminal-line {
+            margin-bottom: 2px;
+        }
+
+        /* Two column layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo and Mode Toggle -->
+    <div class="logo-container">
+        <img src="TAOC.png" alt="Texas Association of Counties" class="taoc-logo" onerror="this.style.display='none'">
+        <div class="mode-toggle" onclick="toggleMode()">
+            <span id="modeText">User</span>
+            <div class="toggle-switch"></div>
+        </div>
+    </div>
+
+    <!-- USER VIEW -->
+    <div class="user-view" id="userView">
+        <div class="main-content">
+            <div class="org-title">Texas Association of Counties</div>
+            <div class="butler-title">BUTLER</div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="How can I help you today?" autofocus>
+            </div>
+
+            <div class="search-buttons">
+                <button class="btn" onclick="search()">BUTLER Search</button>
+                <button class="btn" onclick="feelingLucky()">Quick Help</button>
+            </div>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div class="admin-view" id="adminView">
+        <!-- Admin Header -->
+        <div class="admin-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="admin-org-title">Texas Association of Counties</div>
+                    <div class="admin-butler-title">BUTLER</div>
+                    <div class="subtitle">Administrative Control Panel</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <div class="nav-content">
+                <button class="nav-tab active" onclick="showTab('dashboard')">Dashboard</button>
+                <button class="nav-tab" onclick="showTab('neural')">Neural Network</button>
+                <button class="nav-tab" onclick="showTab('api')">API Configuration</button>
+                <button class="nav-tab" onclick="showTab('system')">System Settings</button>
+                <button class="nav-tab" onclick="showTab('logs')">System Logs</button>
+                <button class="nav-tab" onclick="showTab('security')">Security</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard-tab">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Active Counties</div>
+                        <div class="metric-value">254</div>
+                        <div class="metric-change">All Texas counties connected</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Requests Today</div>
+                        <div class="metric-value">47.2K</div>
+                        <div class="metric-change">+12% from yesterday</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Average Response Time</div>
+                        <div class="metric-value">1.3s</div>
+                        <div class="metric-change">-200ms improvement</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">System Uptime</div>
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-change">30 days continuous</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">Request Volume (Last 24 Hours)</h3>
+                    <div class="chart-placeholder">
+                        [Chart visualization would be rendered here]
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="chart-container">
+                        <h3 class="chart-title">System Health</h3>
+                        <div class="api-grid">
+                            <div class="api-item">
+                                <span class="api-name">Database Cluster</span>
+                                <span class="api-badge connected">Healthy</span>
+                            </div>
+                            <div class="api-item">
+                                <span class="api-name">Cache Service</span>
+                                <span class="api-badge connected">Active</span>
+                            </div>
+                            <div class="api-item">
+                                <span class="api-name">AI Model (Ollama)</span>
+                                <span class="api-badge connected">Online</span>
+                            </div>
+                            <div class="api-item">
+                                <span class="api-name">Backup System</span>
+                                <span class="api-badge connected">Running</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title">Admin Console</h3>
+                        <div style="padding: 20px;">
+                            <input type="text" class="form-input" id="adminInput" placeholder="Enter admin query or command..." style="margin-bottom: 15px;">
+                            <button class="admin-btn" onclick="adminSend()">Send Command</button>
+                            <div id="adminResponse" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 4px; min-height: 60px;">
+                                Ready for commands...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neural Network Tab -->
+            <div class="tab-content" id="neural-tab">
+                <div class="config-section">
+                    <h2 class="config-title">Neural Network Performance</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Model Accuracy</div>
+                            <div class="metric-value">94.7%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Inference Speed</div>
+                            <div class="metric-value">120ms</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Token Usage</div>
+                            <div class="metric-value">2.3M</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Cache Hit Rate</div>
+                            <div class="metric-value">78%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h2 class="config-title">Model Configuration</h2>
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label class="form-label">Primary Model</label>
+                            <select class="form-input">
+                                <option>llama3.2:latest</option>
+                                <option>mistral:latest</option>
+                                <option>neural-chat:latest</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Temperature</label>
+                            <input type="number" class="form-input" value="0.7" step="0.1" min="0" max="2">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Max Tokens</label>
+                            <input type="number" class="form-input" value="2048">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Top P</label>
+                            <input type="number" class="form-input" value="0.9" step="0.1" min="0" max="1">
+                        </div>
+                    </div>
+                    <button class="admin-btn">Update Configuration</button>
+                </div>
+
+                <div class="config-section">
+                    <h2 class="config-title">Training Status</h2>
+                    <div class="terminal">
+                        <div class="terminal-line">$ butler neural status</div>
+                        <div class="terminal-line">Neural Network Status: ACTIVE</div>
+                        <div class="terminal-line">Model: llama3.2:latest</div>
+                        <div class="terminal-line">Version: 3.2.0</div>
+                        <div class="terminal-line">Last Training: 2024-01-15 14:32:00</div>
+                        <div class="terminal-line">Training Data Size: 12.4 GB</div>
+                        <div class="terminal-line">Epochs Completed: 150</div>
+                        <div class="terminal-line">Validation Accuracy: 94.7%</div>
+                        <div class="terminal-line">GPU Memory: 8.2 GB / 16.0 GB</div>
+                        <div class="terminal-line">Temperature: 0.7</div>
+                        <div class="terminal-line">Context Window: 4096 tokens</div>
+                        <div class="terminal-line">$ _</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Configuration Tab -->
+            <div class="tab-content" id="api-tab">
+                <div class="config-section">
+                    <h2 class="config-title">County Database Connections</h2>
+                    <div class="api-grid">
+                        <div class="form-group">
+                            <label class="form-label">Tax Assessment Database</label>
+                            <input type="text" class="form-input" value="sql://county-tax.dallas.gov:1433">
+                            <button class="admin-btn btn-secondary" style="margin-top: 10px;">Test Connection</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Court Records System</label>
+                            <input type="text" class="form-input" value="oracle://courts.dallas.gov:1521/COURTS">
+                            <button class="admin-btn btn-secondary" style="margin-top: 10px;">Test Connection</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Permit & Licensing</label>
+                            <input type="text" class="form-input" value="postgres://permits.dallas.gov:5432/permits">
+                            <button class="admin-btn btn-secondary" style="margin-top: 10px;">Test Connection</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Emergency Services</label>
+                            <input type="text" class="form-input" value="https://emergency.dallas.gov/api/v2">
+                            <button class="admin-btn btn-secondary" style="margin-top: 10px;">Test Connection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h2 class="config-title">External Service Integration</h2>
+                    <div class="form-group">
+                        <label class="form-label">State of Texas API</label>
+                        <input type="text" class="form-input" value="https://api.texas.gov/county-services/v1">
+                        <input type="password" class="form-input" placeholder="API Key" style="margin-top: 10px;" value="••••••••••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Federal Database Access</label>
+                        <input type="text" class="form-input" value="https://api.usa.gov/services/counties">
+                        <input type="password" class="form-input" placeholder="OAuth Token" style="margin-top: 10px;" value="••••••••••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Payment Gateway</label>
+                        <input type="text" class="form-input" value="https://secure.payment.gov/county-dallas">
+                        <input type="password" class="form-input" placeholder="Merchant ID" style="margin-top: 10px;" value="••••••••••••••••">
+                    </div>
+                    <button class="admin-btn">Save API Configuration</button>
+                    <button class="admin-btn btn-secondary" style="margin-left: 10px;">Export Configuration</button>
+                </div>
+
+                <div class="config-section">
+                    <h2 class="config-title">AI Model Endpoint</h2>
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label class="form-label">Ollama Server URL</label>
+                            <input type="text" class="form-input" value="http://localhost:11434">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">API Port</label>
+                            <input type="text" class="form-input" value="5018">
+                        </div>
+                    </div>
+                    <button class="admin-btn" style="background: #188038;">Verify Connection</button>
+                </div>
+            </div>
+
+            <!-- System Settings Tab -->
+            <div class="tab-content" id="system-tab">
+                <div class="config-section">
+                    <h2 class="config-title">System Configuration</h2>
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label class="form-label">System Name</label>
+                            <input type="text" class="form-input" value="BUTLER-PROD-01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Environment</label>
+                            <select class="form-input">
+                                <option>Production</option>
+                                <option>Staging</option>
+                                <option>Development</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cache TTL (seconds)</label>
+                            <input type="number" class="form-input" value="3600">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Max Concurrent Users</label>
+                            <input type="number" class="form-input" value="1000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Logs Tab -->
+            <div class="tab-content" id="logs-tab">
+                <div class="config-section">
+                    <h2 class="config-title">System Logs</h2>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; height: 400px; overflow-y: auto; font-family: monospace; font-size: 13px;">
+                        <div style="margin-bottom: 8px;"><span style="color: #5f6368;">2024-01-15 14:32:15</span> <span style="background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px;">INFO</span> System initialized successfully</div>
+                        <div style="margin-bottom: 8px;"><span style="color: #5f6368;">2024-01-15 14:32:18</span> <span style="background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px;">INFO</span> Connected to Ollama model: llama3.2:latest</div>
+                        <div style="margin-bottom: 8px;"><span style="color: #5f6368;">2024-01-15 14:32:20</span> <span style="background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px;">INFO</span> Database connections established</div>
+                        <div style="margin-bottom: 8px;"><span style="color: #5f6368;">2024-01-15 14:38:55</span> <span style="background: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px;">INFO</span> User query processed: Tax payment information</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Tab -->
+            <div class="tab-content" id="security-tab">
+                <div class="config-section">
+                    <h2 class="config-title">Access Control</h2>
+                    <div class="form-group">
+                        <label class="form-label">Authentication Method</label>
+                        <select class="form-input">
+                            <option>Active Directory + MFA</option>
+                            <option>OAuth 2.0</option>
+                            <option>SAML</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Session Timeout (minutes)</label>
+                        <input type="number" class="form-input" value="30">
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h2 class="config-title">Encryption Settings</h2>
+                    <div class="two-column">
+                        <div class="form-group">
+                            <label class="form-label">Data Encryption</label>
+                            <select class="form-input">
+                                <option>AES-256</option>
+                                <option>AES-128</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">TLS Version</label>
+                            <select class="form-input">
+                                <option>TLS 1.3</option>
+                                <option>TLS 1.2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const OLLAMA_API_URL = 'http://localhost:5019'; // Document-aware API
+
+        function toggleMode() {
+            document.body.classList.toggle('admin-mode');
+            document.getElementById('modeText').textContent =
+                document.body.classList.contains('admin-mode') ? 'Admin' : 'User';
+        }
+
+        async function search() {
+            const input = document.getElementById('searchInput');
+            const query = input.value;
+            if (!query) return;
+
+            const results = document.getElementById('results');
+            results.style.display = 'block';
+
+            // Show loading state
+            results.innerHTML = `
+                <div class="result-card">
+                    <strong>Your Query:</strong> ${input.value}<br><br>
+                    <strong>BUTLER Response:</strong><br>
+                    <em>Thinking...</em>
+                </div>
+            `;
+
+            try {
+                // Call the real Ollama API
+                const response = await fetch(`${OLLAMA_API_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: query,
+                        context_type: 'general'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    results.innerHTML = `
+                        <div class="result-card">
+                            <strong>Your Query:</strong> ${input.value}<br><br>
+                            <strong>BUTLER Response:</strong><br>
+                            ${data.response}
+                        </div>
+                    `;
+                } else {
+                    results.innerHTML = `
+                        <div class="result-card">
+                            <strong>Your Query:</strong> ${input.value}<br><br>
+                            <strong>Error:</strong><br>
+                            ${data.response || 'Unable to get response from BUTLER'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                results.innerHTML = `
+                    <div class="result-card">
+                        <strong>Your Query:</strong> ${input.value}<br><br>
+                        <strong>Error:</strong><br>
+                        Unable to connect to BUTLER. Please ensure the API server is running on port 5018.
+                    </div>
+                `;
+            }
+
+            // Clear input for next query
+            input.value = '';
+        }
+
+        async function feelingLucky() {
+            const suggestions = [
+                "How do I pay a fine in Harris County?",
+                "What permits do I need to build a deck in Texas?",
+                "When are property taxes due in Dallas County?",
+                "How do I find my court date in Travis County?",
+                "What are the requirements for a septic permit?",
+                "How much is a speeding ticket fine in Texas?"
+            ];
+            const random = suggestions[Math.floor(Math.random() * suggestions.length)];
+            document.getElementById('searchInput').value = random;
+            await search();
+        }
+
+        async function adminSend() {
+            const input = document.getElementById('adminInput');
+            const msg = input.value;
+            if (!msg) return;
+
+            const response = document.getElementById('adminResponse');
+            response.innerHTML = 'Processing...';
+
+            try {
+                // Call the Ollama API with admin context
+                const result = await fetch(`${OLLAMA_API_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: msg,
+                        context_type: 'admin'
+                    })
+                });
+
+                const data = await result.json();
+
+                if (data.success) {
+                    response.innerHTML = data.response;
+                } else {
+                    response.innerHTML = `Error: ${data.response || 'Unable to process command'}`;
+                }
+            } catch (error) {
+                response.innerHTML = `Error: Connection failed. Ensure API is running on port 5018.`;
+            }
+
+            input.value = '';
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(navTab => {
+                navTab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Set active nav tab
+            event.target.classList.add('active');
+        }
+
+        // Check Ollama connection on load
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${OLLAMA_API_URL}/api/status`);
+                const data = await response.json();
+                console.log('BUTLER API Status:', data);
+            } catch (error) {
+                console.warn('BUTLER API not available at port 5018. Please start simple_ollama_api.py');
+            }
+        }
+
+        // Enter key handlers
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') search();
+        });
+
+        document.getElementById('adminInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adminSend();
+        });
+
+        // Check connection on page load
+        window.addEventListener('load', checkConnection);
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update random metric
+            const metrics = document.querySelectorAll('.metric-value');
+            if (metrics.length > 1) {
+                const requests = metrics[1];
+                const current = parseFloat(requests.textContent);
+                const change = (Math.random() - 0.3) * 0.5;
+                requests.textContent = (current + change).toFixed(1) + 'K';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

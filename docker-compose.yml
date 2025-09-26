@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Ollama service - Local LLM
+  ollama:
+    image: ollama/ollama:latest
+    container_name: butler-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    command: serve
+
+  # BUTLER API service
+  butler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: butler-api
+    ports:
+      - "5019:5019"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./butler-final.html:/app/butler-final.html
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - FLASK_ENV=production
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    networks:
+      - butler-network
+
+  # Optional: Nginx for serving static files
+  nginx:
+    image: nginx:alpine
+    container_name: butler-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./butler-final.html:/usr/share/nginx/html/index.html
+      - ./TAOC.png:/usr/share/nginx/html/TAOC.png
+      - ./TAOC.webp:/usr/share/nginx/html/TAOC.webp
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - butler
+    restart: unless-stopped
+    networks:
+      - butler-network
+
+networks:
+  butler-network:
+    driver: bridge
+
+volumes:
+  ollama-data:

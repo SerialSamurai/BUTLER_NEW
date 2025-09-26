@@ -7,3 +7,205 @@
 2025-09-25 15:49:08,277 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - permission_check_ncic_tcic - access_control
 2025-09-25 15:49:08,278 - BUTLER - INFO - Action logged: system - crime_pattern_analysis_7d - intelligence
 2025-09-25 15:49:08,278 - BUTLER - INFO - Action logged: county.manager@dallascounty.org - executive_dashboard_generated - intelligence
+2025-09-26 07:55:22,204 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 07:55:22,205 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 07:55:22,229 - BUTLER - INFO -  * Restarting with watchdog (windowsapi)
+2025-09-26 07:55:23,160 - BUTLER - WARNING -  * Debugger is active!
+2025-09-26 07:55:23,167 - BUTLER - INFO -  * Debugger PIN: 981-519-127
+2025-09-26 07:55:40,627 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 07:55:40,627 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 07:55:52,779 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 07:55:52] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 07:57:06,539 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 07:57:06] "GET / HTTP/1.1" 200 -
+2025-09-26 07:57:51,281 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 07:57:51] "GET / HTTP/1.1" 200 -
+2025-09-26 07:58:21,727 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 07:58:21,727 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 08:00:13,693 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 08:00:13,693 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 08:01:02,350 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:01:02] "GET / HTTP/1.1" 200 -
+2025-09-26 08:01:02,682 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:01:02] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:01:02,730 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:01:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-26 08:01:16,182 - BUTLER - INFO - Action logged: demo@dallas.gov - ai_query - butler_core
+2025-09-26 08:01:16,451 - BUTLER - INFO - Connected to Ollama version: 0.12.0
+2025-09-26 08:01:21,643 - BUTLER - INFO - Action logged: demo@dallas.gov - ai_response_generated - butler_core
+2025-09-26 08:01:21,643 - BUTLER - INFO - Action logged: demo@dallas.gov - chat_interaction - api
+2025-09-26 08:01:21,645 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:01:21] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 08:01:32,373 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:01:32] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:02:02,697 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:02:02] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:02:32,373 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:02:32] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:03:02,685 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:03:02] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:03:32,377 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:03:32] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:09:49,526 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 08:09:49,527 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 08:13:04,737 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:13:04] "GET / HTTP/1.1" 200 -
+2025-09-26 08:13:05,452 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:13:05] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:13:35,470 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:13:35] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:13:43,981 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:13:43] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 08:13:44,297 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:13:44] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:14:15,039 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:14:15] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:14:44,731 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:14:44] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:15:15,041 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:15:15] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:15:44,743 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:15:44] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:16:14,340 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:16:14] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:16:15,723 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:16:15] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 08:16:16,026 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:16:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:16:47,041 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:16:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:17:16,739 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:17:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:17:47,044 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:17:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:18:16,732 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:18:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:18:47,049 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:18:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:19:16,743 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:19:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:19:47,053 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:19:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:20:16,731 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:20:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:21:11,054 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:21:11] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:22:10,737 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:22:10] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:23:11,042 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:23:11] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:24:10,741 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:24:10] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:25:05,185 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:25:05] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:25:16,738 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:25:16] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:25:47,035 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:25:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:26:48,052 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:26:48] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:27:49,052 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:27:49] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:28:50,055 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:28:50] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:29:39,405 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:29:39] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:29:44,450 - BUTLER - INFO - Action logged: clerk@dallas.gov - ai_query - butler_core
+2025-09-26 08:29:44,715 - BUTLER - INFO - Connected to Ollama version: 0.12.0
+2025-09-26 08:29:45,917 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:29:45] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:29:48,215 - BUTLER - INFO - Action logged: clerk@dallas.gov - ai_response_generated - butler_core
+2025-09-26 08:29:48,215 - BUTLER - INFO - Action logged: clerk@dallas.gov - chat_interaction - api
+2025-09-26 08:29:48,216 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:29:48] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 08:29:54,712 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:29:54] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 08:29:54,926 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:29:54] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:35:58,650 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 08:35:58,650 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 08:45:53,753 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:45:53] "GET / HTTP/1.1" 200 -
+2025-09-26 08:45:54,430 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:45:54] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:46:24,429 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:46:24] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:53:56,845 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 08:53:56,845 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 08:56:23,114 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:56:23] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 08:56:39,351 - BUTLER - INFO - Action logged: test@dallas.gov - ai_query - butler_core
+2025-09-26 08:56:39,619 - BUTLER - INFO - Connected to Ollama version: 0.12.0
+2025-09-26 08:56:45,456 - BUTLER - INFO - Action logged: test@dallas.gov - ai_response_generated - butler_core
+2025-09-26 08:56:45,457 - BUTLER - INFO - Action logged: test@dallas.gov - chat_interaction - api
+2025-09-26 08:56:45,458 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 08:56:45] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 09:02:01,071 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:02:01] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 09:02:01,606 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:02:01] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:02:31,617 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:02:31] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:03:01,311 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:03:01] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:05:47,835 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:05:47] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-09-26 09:05:48,083 - BUTLER - INFO - Action logged: user@dallas.gov - ai_query - butler_core
+2025-09-26 09:05:48,084 - BUTLER - ERROR - Error generating response: Event loop is closed
+2025-09-26 09:05:48,084 - BUTLER - INFO - Action logged: user@dallas.gov - ai_response_generated - butler_core
+2025-09-26 09:05:48,085 - BUTLER - INFO - Action logged: user@dallas.gov - chat_interaction - api
+2025-09-26 09:05:48,085 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:05:48] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 09:06:25,712 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:06:25,712 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:07:54,962 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:07:54] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 09:07:55,520 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:07:55] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:10:40,800 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:10:40,800 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:10:53,729 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:10:53] "GET / HTTP/1.1" 200 -
+2025-09-26 09:11:23,995 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:11:23,996 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:11:35,925 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:11:35] "GET / HTTP/1.1" 200 -
+2025-09-26 09:11:44,511 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:11:44] "GET / HTTP/1.1" 200 -
+2025-09-26 09:12:02,125 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:12:02] "GET /test HTTP/1.1" 200 -
+2025-09-26 09:12:46,731 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:12:46] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 09:12:47,242 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:12:47] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:14:04,932 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:14:04,933 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:14:19,990 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:14:19] "[36mGET / HTTP/1.1[0m" 304 -
+2025-09-26 09:14:20,539 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:14:20] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:15:45,243 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:15:45] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:16:04,680 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:16:04,681 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:16:15,604 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:16:15] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:16:31,106 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:16:31] "GET /api/status HTTP/1.1" 200 -
+2025-09-26 09:17:10,357 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:17:10,357 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:17:19,237 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:17:19] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:17:47,077 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:17:47,078 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:17:56,373 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:17:56] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:18:37,754 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:18:37] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:18:38,107 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:18:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-26 09:19:24,036 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:19:24,037 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:19:32,560 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:19:32] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:19:40,771 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:19:40] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:20:26,722 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:20:26,722 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:20:34,581 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:20:34] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-09-26 09:20:34,830 - BUTLER - INFO - Action logged: user@dallas.gov - ai_query - butler_core
+2025-09-26 09:20:34,830 - BUTLER - ERROR - Error generating response: Event loop is closed
+2025-09-26 09:20:34,830 - BUTLER - INFO - Action logged: user@dallas.gov - ai_response_generated - butler_core
+2025-09-26 09:20:34,831 - BUTLER - INFO - Action logged: user@dallas.gov - chat_interaction - api
+2025-09-26 09:20:34,831 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:20:34] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 09:20:35,800 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:20:35] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:21:07,592 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:21:07] "OPTIONS /api/chat HTTP/1.1" 200 -
+2025-09-26 09:21:07,850 - BUTLER - INFO - Action logged: user@dallas.gov - ai_query - butler_core
+2025-09-26 09:21:07,850 - BUTLER - ERROR - Error generating response: Event loop is closed
+2025-09-26 09:21:07,850 - BUTLER - INFO - Action logged: user@dallas.gov - ai_response_generated - butler_core
+2025-09-26 09:21:07,851 - BUTLER - INFO - Action logged: user@dallas.gov - chat_interaction - api
+2025-09-26 09:21:07,852 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:21:07] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 09:23:08,841 - BUTLER - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5017
+ * Running on http://10.213.57.33:5017
+2025-09-26 09:23:08,842 - BUTLER - INFO - [33mPress CTRL+C to quit[0m
+2025-09-26 09:23:20,577 - BUTLER - INFO - Action logged: test@taoc.org - ai_query - butler_core
+2025-09-26 09:23:20,578 - BUTLER - ERROR - Error generating response: Event loop is closed
+2025-09-26 09:23:20,578 - BUTLER - INFO - Action logged: test@taoc.org - ai_response_generated - butler_core
+2025-09-26 09:23:20,579 - BUTLER - INFO - Action logged: test@taoc.org - chat_interaction - api
+2025-09-26 09:23:20,580 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:23:20] "POST /api/chat HTTP/1.1" 200 -
+2025-09-26 09:27:10,350 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:27:10] "[33mGET / HTTP/1.1[0m" 404 -
+2025-09-26 09:27:10,427 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:27:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-26 09:28:55,869 - BUTLER - INFO - 127.0.0.1 - - [26/Sep/2025 09:28:55] "[33mGET / HTTP/1.1[0m" 404 -

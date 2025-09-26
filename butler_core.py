@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from enum import Enum
 import hashlib
 import json
+from ollama_integration import OllamaIntegration
 
 class SecurityLevel(Enum):
     PUBLIC = "public"
@@ -64,6 +65,9 @@ class ButlerCore:
         self.system_integrations: Dict[SystemType, Any] = {}
         self.security_mode = True  # Always secure by default
         self.internet_disabled = True  # Air-gapped by design
+
+        # Initialize Ollama integration
+        self.ai_engine = OllamaIntegration()
 
         # Initialize logging for forensic accountability
         self._setup_forensic_logging()
@@ -170,8 +174,35 @@ class ButlerCore:
                 "fips_140_2": True,
                 "cjis_compliant": True,
                 "hipaa_compliant": True
-            }
+            },
+            "ai_engine_status": "connected" if self.ai_engine else "disconnected"
         }
+
+    async def process_query(self, user_id: str, query: str, context_type: str = "general") -> str:
+        """
+        Process user queries using Ollama AI engine
+        Provides intelligent responses based on government context
+        """
+        # Check user permissions
+        if user_id not in self.active_users:
+            return "Authentication required. Please login with valid credentials."
+
+        # Log the query
+        self.log_action(user_id, "ai_query", "butler_core", SecurityLevel.INTERNAL,
+                       {"query": query[:100], "context_type": context_type})
+
+        # Get response from Ollama
+        try:
+            response = await self.ai_engine.get_contextual_response(query, context_type)
+
+            # Log successful response
+            self.log_action(user_id, "ai_response_generated", "butler_core",
+                          SecurityLevel.INTERNAL)
+
+            return response
+        except Exception as e:
+            self.logger.error(f"AI processing error: {e}")
+            return "I apologize, but I'm unable to process your request at this moment. Please try again."
 
 class ListServIntegration:
     """
